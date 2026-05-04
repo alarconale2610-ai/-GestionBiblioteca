@@ -1,0 +1,50 @@
+
+classDiagram
+
+    class Libro {
+        -string titulo
+        -string autor
+        -string isbn
+        -number cantidadDisponible
+        +getTitulo() string
+        +getAutor() string
+        +getIsbn() string
+        +getCantidadDisponible() number
+        +setCantidadDisponible(n) void
+        +agregarLibro() void
+        +eliminarLibro(isbn) void
+        +buscarPorTitulo(titulo) void
+        +mostrarDisponibles() void
+        +validarDisponibilidad() boolean
+    }
+
+    class Usuario {
+        -string nombre
+        -string id
+        +getNombre() strings
+        +getId() string
+        +buscarPorId(id) void
+        +eliminarUsuario(id) void
+        +prestarLibro(libro) void
+        +mostrarLibrosDisponibles(libros) void
+    }
+
+    class Prestamo {
+        -Libro libro
+        -Usuario usuario
+        -Date fechaPrestamo
+        -Date fechaDevolucion
+        -boolean activo
+        +getLibro() Libro
+        +getUsuario() Usuario
+        +getFechaPrestamo() Date
+        +isActivo() boolean
+        +consultarPrestamos() void
+        +registrarDevolucion() void
+        +eliminarPrestamosDeUsuario(idUsuario) void
+    }
+
+    Prestamo --> Libro : usa
+    Prestamo --> Usuario : usa
+    Usuario --> Libro : usa
+```
