@@ -21,6 +21,10 @@ export class Prestamo {
   getFechaPrestamo(): Date { return this.fechaPrestamo; }
   isActivo(): boolean { return this.activo; }
 
+  // RF04 – Registrar préstamo
+  registrarPrestamo(): void {
+    // falta la implementaci
+  }
 
   consultarPrestamos(): void {
     // falta la implementación
@@ -31,9 +35,13 @@ export class Prestamo {
     // falta la implementación
   }
 
-  
+  // RF09 – Validar disponibilidad del libro
+  validarDisponibilidadLibro(): boolean {
+    // falta la implementación
+  }
+
   eliminarPrestamosDeUsuario(idUsuario: string): void {
-     // falta la implementación
+    // falta la implementación
   }
 
   toString(): string {
