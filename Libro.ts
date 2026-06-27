@@ -25,26 +25,59 @@ export class Libro {
 
 
   agregarLibro(): void {
-    // falta la implementación
+    Libro.libros.push(this);
+    console:log("libro agreagado correctamente");
+    //
   }
 
   
   eliminarLibro(isbn: string): void {
-    // falta la implementación
+    const indice = Libro.libros.findIndex(
+      libro => libro.getIsbn() === isbn
+      );
+    if (indice !== -1) {
+      Libro.libros.splice(indice, 1);
+      console.log("Libro eliminado correctamente.");
+    } else {
+      console.log("Libro no encontrado.");
+    }
+      
+    // 
   }
 
   
   buscarPorTitulo(titulo: string): void {
-    // falta la implementación
+     const libro = Libro.libros.find(
+    l => l.getTitulo().toLowerCase() === titulo.toLowerCase()
+  );
+
+  if (libro) {
+    console.log(libro.toString());
+  } else {
+    console.log("Libro no encontrado.");
+  }
+
+    // 
   }
 
   mostrarDisponibles(): void {
-    // falta la implementación
+    const disponibless = Libros.libros.filter(
+       libro => libro.getCantidadDisponible() > 0
+  );
+
+  if (disponibles.length > 0) {
+    disponibles.forEach(libro => console.log(libro.toString()));
+  } else {
+    console.log("No hay libros disponibles.");
+  }
+    // 
   }
 
  
   validarDisponibilidad(): boolean {
-    // pendiente de implementación
+    return this.cantidadDisponible > 0;
+}
+    // 
     return false; 
   }
 
