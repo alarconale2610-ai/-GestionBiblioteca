@@ -1,0 +1,15 @@
+{
+  "name": "sistema-biblioteca",
+  "version": "1.0.0",
+  "description": "Sistema de biblioteca - prototipo de consola con arquitectura en capas y patron Singleton",
+  "main": "dist/presentation/menus/main.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node src/presentation/menus/main.ts"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "ts-node": "^10.9.2",
+    "@types/node": "^20.11.0"
+  }
+}

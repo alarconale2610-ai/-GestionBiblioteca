@@ -1,4 +1,3 @@
-
 classDiagram
 
     class Libro {
@@ -11,22 +10,13 @@ classDiagram
         +getIsbn() string
         +getCantidadDisponible() number
         +setCantidadDisponible(n) void
-        +agregarLibro() void
-        +eliminarLibro(isbn) void
-        +buscarPorTitulo(titulo) void
-        +mostrarDisponibles() void
-        +validarDisponibilidad() boolean
     }
 
     class Usuario {
         -string nombre
         -string id
-        +getNombre() strings
+        +getNombre() string
         +getId() string
-        +buscarPorId(id) void
-        +eliminarUsuario(id) void
-        +prestarLibro(libro) void
-        +mostrarLibrosDisponibles(libros) void
     }
 
     class Prestamo {
@@ -38,13 +28,82 @@ classDiagram
         +getLibro() Libro
         +getUsuario() Usuario
         +getFechaPrestamo() Date
+        +getFechaDevolucion() Date
         +isActivo() boolean
-        +consultarPrestamos() void
         +registrarDevolucion() void
+    }
+
+    class DataContext {
+        <<Singleton>>
+        -static DataContext instance
+        -Libro[] libros
+        -Usuario[] usuarios
+        -Prestamo[] prestamos
+        -DataContext()
+        +static getInstance() DataContext
+        +getLibros() Libro[]
+        +getUsuarios() Usuario[]
+        +getPrestamos() Prestamo[]
+    }
+
+    class BibliotecaFactory {
+        <<Factory>>
+        -static number contadorUsuarios
+        +static crearLibro(titulo, autor, isbn, cantidad) Libro
+        +static crearUsuario(nombre) Usuario
+        +static crearPrestamo(libro, usuario) Prestamo
+    }
+
+    class LibroService {
+        +agregarLibro(titulo, autor, isbn, cantidad) Libro
+        +eliminarLibro(isbn) boolean
+        +buscarPorTitulo(titulo) Libro[]
+        +mostrarDisponibles() void
+        +validarDisponibilidad(isbn) boolean
+    }
+
+    class UsuarioService {
+        +registrarUsuario(nombre) Usuario
+        +buscarPorId(id) Usuario
+        +eliminarUsuario(id) boolean
+        +prestarLibro(usuario, libro) void
+        +mostrarLibrosDisponibles(libros) void
+    }
+
+    class PrestamoService {
+        +registrarPrestamo(usuario, libro) Prestamo
+        +consultarPrestamos() Prestamo[]
+        +registrarDevolucion(libro, usuario) boolean
         +eliminarPrestamosDeUsuario(idUsuario) void
+    }
+
+    class MainTs {
+        <<presentation>>
+        +main() void
     }
 
     Prestamo --> Libro : usa
     Prestamo --> Usuario : usa
-    Usuario --> Libro : usa
-```
+
+    DataContext o-- "*" Libro : contiene
+    DataContext o-- "*" Usuario : contiene
+    DataContext o-- "*" Prestamo : contiene
+
+    BibliotecaFactory ..> Libro : crea
+    BibliotecaFactory ..> Usuario : crea
+    BibliotecaFactory ..> Prestamo : crea
+    BibliotecaFactory --> DataContext : consulta
+
+    LibroService --> DataContext : usa
+    LibroService --> BibliotecaFactory : usa
+
+    UsuarioService --> DataContext : usa
+    UsuarioService --> BibliotecaFactory : usa
+    UsuarioService --> PrestamoService : usa
+
+    PrestamoService --> DataContext : usa
+    PrestamoService --> BibliotecaFactory : usa
+
+    MainTs --> LibroService : usa
+    MainTs --> UsuarioService : usa
+    MainTs --> PrestamoService : usa
